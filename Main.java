@@ -10,8 +10,9 @@ public class Main {
 	public static void main(String args[]){
 		Datacenter d= loadData(new File("dc.in.txt"));
 		System.out.println(d.toString());
-		d.rangement();
+		d.rangement1();
 		System.out.println(d.score());
+		d.etat();
 	}
 	
 	public static Datacenter loadData(File f){

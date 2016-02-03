@@ -54,7 +54,7 @@ public class Datacenter{
 	}
 
 	
-	public void ajoutListeServeur(int capa, int taille){
+	public void ajoutListeServeur(int taille, int capa){
 		listeServ.add(new Serveur(capa, taille));
 	}
 	
@@ -81,33 +81,88 @@ public class Datacenter{
 		return true;
 	}
 	
-	public void rangement(){
+	public void rangement1(){
 		Collections.sort(listeServ);
 		
 		Groupe gr=null;
+		
 		for(Serveur s : listeServ){
-			int min=-1;
+			double min=-1;
+			int i=0;
 			for(Groupe g : groupes){
-				if((g.getCapacite()<min)||(min==-1))
+				
+				if((g.getCapacite()<min)||(min==-1)){
 					gr=g;
+					min=g.getCapacite();
+				}
 			}
-			gr.add(s);	
+			gr.add(s);
+
 		}
 		
-		
+		for(Groupe g : groupes)
+			System.out.println("Groupe de capacité :"+g.getCapacite());
 		while((!full)&&(!plus_de_possibilite())){
-			double max=0;
+			double max=10000000;
 			gr=null;
 			for(Groupe g : groupes){
-				if(g.getRegret()>max){
-					max=g.getRegret();
+				if(g.Liste_Serveur.size()!=0){
+				if(g.capacite()<=max){
+
+					
+					max=g.capacite();
+
 					gr=g;
 					
 					
 				}
+				}
 			}
 			gr.affecte(this);
 		}
+		System.out.println("On arrete a cause du full ?"+full+" Ou plus de possibilité "+plus_de_possibilite());
+		
+	}
+	public void rangement2(){
+		Collections.sort(listeServ);
+		
+		Groupe gr=null;
+		
+		for(Serveur s : listeServ){
+			double min=-1;
+			int i=0;
+			for(Groupe g : groupes){
+				
+				if((g.getCapacite()<min)||(min==-1)){
+					gr=g;
+					min=g.getCapacite();
+				}
+			}
+			gr.add(s);
+
+		}
+		
+		for(Groupe g : groupes)
+			System.out.println("Groupe de capacité :"+g.getCapacite());
+		while((!full)&&(!plus_de_possibilite())){
+			double max=0;
+			gr=null;
+			for(Groupe g : groupes){
+				if(g.Liste_Serveur.size()!=0){
+				if(g.getRegret()>=max){
+
+					
+					max=g.getRegret();
+
+					gr=g;
+					
+					
+				}
+				}
+			}
+			gr.affecte(this);
+		}
+		System.out.println("On arrete a cause du full ?"+full+" Ou plus de possibilité "+plus_de_possibilite());
 		
 	}
 	
@@ -115,6 +170,7 @@ public class Datacenter{
 	public double score(){
 		double ret=-1;
 		for(Groupe g : groupes){
+			System.out.println("Minimum de ce groupe :"+g.capacite());
 			if((g.capacite()<ret)||(ret==-1))
 				ret=g.capacite();
 		}

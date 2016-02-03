@@ -10,7 +10,10 @@ public class Groupe {
 	
 	public Groupe(int l,int d){
 		Liste_Serveur= new ArrayList<Serveur>();
+		ligne=l;
+		dispo=d;
 		organisation=new Serveur[l][d];
+		
 		for(int i=0;i<ligne;i++){
 			for(int j=0;j<dispo;j++){
 				organisation[i][j]=null;
@@ -19,13 +22,11 @@ public class Groupe {
 	}
 	
 	public double getRegret(){
-		for(int i=0;i<Liste_Serveur.size();i++){
-			if(!Liste_Serveur.get(i).place()){
-				if(i!=Liste_Serveur.size()-1)
-					return Liste_Serveur.get(i).getRatio();
-				return Liste_Serveur.get(i).getRatio()-Liste_Serveur.get(i+1).getRatio();
-			}
-		}
+		
+		if(Liste_Serveur.size()>1)
+				return Liste_Serveur.get(0).getRatio()-Liste_Serveur.get(1).getRatio();
+		if(Liste_Serveur.size()==1)
+			return Liste_Serveur.get(0).getRatio();
 		return -1;
 	}
 	double capacite(){
@@ -59,35 +60,56 @@ public class Groupe {
 	public void add(Serveur s){Liste_Serveur.add(s);}
 	
 	public void affecte(Datacenter d){
-		int[] indice= ligne_inf();
+		if( Liste_Serveur.size()==0)
+			return;
+		
+
+
+		int[] indice= ligne_inf(d);
+
 		for(int i=0;i<ligne;i++){
-			
 			int j=0;
 			int tmp=0;
+
+
 			while(j<dispo){
+
 				if(d.data[indice[i]][j]==null){
 					tmp++;
 					if(Liste_Serveur.get(0).getTaille()==tmp){
 						for(int k=0;k<Liste_Serveur.get(0).getTaille();k++){
-							d.data[indice[i]][j]=Liste_Serveur.get(0);
-							organisation[indice[i]][j]=Liste_Serveur.get(0);
-							Liste_Serveur.remove(0);
-							return;
+							//System.out.println(j-k);
+							d.data[indice[i]][j-k]=Liste_Serveur.get(0);
+							organisation[indice[i]][j-k]=Liste_Serveur.get(0);
+							
+							
+
+							
 						}
+
+						d.nombre=Liste_Serveur.get(0).getTaille()+d.nombre;
+						if(d.nombre>=ligne*dispo)
+							d.full=true;
+						Liste_Serveur.remove(0);
+						return;
 					}
 				}
-				else{tmp=0;}	
+				else{tmp=0;}
+				j++;
 			}				
 		}
 		Liste_Serveur.remove(0);				
 	}
 	
-	public int[] ligne_inf(){
+	public int[] ligne_inf(Datacenter d){
+
+
 		double[] ret=new double[ligne];
 		for(int i=0;i<ligne;i++){
 			double tmp=0;
 			for(int j=0;j<dispo;j++){
-				tmp=tmp+organisation[i][j].getCapacite();
+				if(d.data[i][j]!=null)
+					tmp=tmp+d.data[i][j].getCapacite();
 			}
 			ret[i]=tmp;
 		}
@@ -105,9 +127,14 @@ public class Groupe {
 	      }
 	    }
 	    for (i=0; i<ligne; i++) classement[cpt[i]]=i;
-	    return classement;
+		for( i=0;i<ligne;i++){
+			//System.out.print(classement[i]+" "+ret[classement[i]]+"\t");
+		}
+		//System.out.println();
+			return classement;
 		
 	}
 
+	
 	
 }

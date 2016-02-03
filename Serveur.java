@@ -36,10 +36,13 @@ public class Serveur implements Comparable {
 	public int compareTo(Object o) {
 		Serveur s=(Serveur)o;
 		if(getRatio()<s.getRatio())
-			return -1;
-		if(getRatio()>s.getRatio())
 			return 1;
+		if(getRatio()>s.getRatio())
+			return -1;
 		return 0;
+	}
+	public String toString(){
+		return "["+taille+"]"+"["+capacite+"]";
 	}
 
 
