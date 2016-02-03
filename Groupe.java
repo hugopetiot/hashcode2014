@@ -9,6 +9,11 @@ public class Groupe {
 	public Groupe(int l,int d){
 		Liste_Serveur= new ArrayList<Serveur>();
 		organisation=new Serveur[l][d];
+		for(int i=0;i<ligne;i++){
+			for(int j=0;j<dispo;j++){
+				organisation[i][j]=null;
+			}
+		}
 	}
 	
 	public double getRegret(){
