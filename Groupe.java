@@ -11,6 +11,16 @@ public class Groupe {
 		organisation=new Serveur[l][d];
 	}
 	
+	public double getRegret(){
+		for(int i=0;i<Liste_Serveur.size();i++){
+			if(!Liste_Serveur.get(i).place()){
+				if(i!=Liste_Serveur.size()-1)
+					return Liste_Serveur.get(i).getRatio();
+				return Liste_Serveur.get(i).getRatio()-Liste_Serveur.get(i+1).getRatio();
+			}
+		}
+		return -1;
+	}
 	double capacite(){
 		double capacite=0;
 		double tmp=0;

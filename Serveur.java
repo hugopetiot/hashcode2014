@@ -15,7 +15,11 @@ public class Serveur {
 	}
 	
 	
-	
+	public boolean place(){
+		if(emplacement==-1)
+			return false;
+		return true;
+	}
 	double getRatio(){return capacite/taille;}
 	int getCapacite(){return capacite;}
 	void setCapacite(int c){capacite=c;}
