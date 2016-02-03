@@ -1,17 +1,19 @@
 import java.util.ArrayList;
 
 public class Datacenter{
-	int rangees, emplacements, emplacementsIndisponibles, groupes, serveurs;
+	int rangees, emplacements, emplacementsIndisponibles, serveurs;
 	Serveur[][] data;
 	ArrayList<Serveur> listeServ;
+	ArrayList<Groupe> groupes;
 	
 	public Datacenter(int r, int e, int ei, int g, int s){
 		rangees = r;
 		emplacements = e;
 		emplacementsIndisponibles = ei;
-		groupes = g;
+
 		serveurs = s;
 		listeServ = new ArrayList<Serveur>();
+		groupes= new ArrayList<Groupe>(g);
 		data = new Serveur[rangees][emplacements];
 		for(int i=0;i<rangees;i++){
 			for(int j=0;i<emplacements;i++){
