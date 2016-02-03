@@ -5,14 +5,16 @@ public class Serveur {
 	int emplacement;
 	Groupe groupe;
 	
+	
 	public Serveur(int c,int t){
 		capacite=c;
 		taille=t;
 		ligne=-1;
 		emplacement=-1;
-		groupe=null;
-		
+		groupe=null;		
 	}
+	
+	
 	
 	double getRatio(){return capacite/taille;}
 	int getCapacite(){return capacite;}
