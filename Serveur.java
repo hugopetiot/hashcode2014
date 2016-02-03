@@ -3,14 +3,14 @@ public class Serveur {
 	int taille;
 	int ligne;
 	int emplacement;
-	Pool p;
+	Groupe groupe;
 	
 	public Serveur(int c,int t){
 		capacite=c;
 		taille=t;
 		ligne=-1;
 		emplacement=-1;
-		p=null;
+		groupe=null;
 		
 	}
 	
@@ -23,8 +23,8 @@ public class Serveur {
 	void setLigne(int c){ligne=c;}
 	int getEmplacement(){return emplacement;}
 	void setEmplacement(int c){emplacement=c;}
-	Pool getPool(){return p;}
-	void setPool(Pool pool){p=pool;}
+	Groupe getGroupe(){return groupe;}
+	void setGroupe(Groupe g){groupe=g;}
 	
 	
 	
