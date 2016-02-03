@@ -11,8 +11,10 @@ public class Serveur {
 		ligne=-1;
 		emplacement=-1;
 		p=null;
+		
 	}
 	
+	double getRatio(){return capacite/taille;}
 	int getCapacite(){return capacite;}
 	void setCapacite(int c){capacite=c;}
 	int getTaille(){return taille;}
