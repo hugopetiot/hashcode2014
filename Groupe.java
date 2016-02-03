@@ -3,8 +3,15 @@ import java.util.ArrayList;
 public class Groupe {
 	ArrayList<Serveur> Liste_Serveur;
 	Serveur[][] organisation;
+	int ligne;
+	int dispo;
 	
-	double capacite(int ligne, int dispo){
+	public Groupe(int l,int d){
+		Liste_Serveur= new ArrayList<Serveur>();
+		organisation=new Serveur[l][d];
+	}
+	
+	double capacite(){
 		double capacite=0;
 		double tmp=0;
 		for(int k=0; k<ligne;k++){
