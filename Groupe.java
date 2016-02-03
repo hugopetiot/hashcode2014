@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class Groupe {
 	ArrayList<Serveur> Liste_Serveur;
@@ -46,4 +48,66 @@ public class Groupe {
 		}
 		return capacite;
 	}
+	
+	double getCapacite(){
+		double ret=0;
+		for(Serveur s : Liste_Serveur){
+			ret=ret+s.getCapacite();
+		}
+		return ret;	
+	}
+	public void add(Serveur s){Liste_Serveur.add(s);}
+	
+	public void affecte(Datacenter d){
+		int[] indice= ligne_inf();
+		for(int i=0;i<ligne;i++){
+			
+			int j=0;
+			int tmp=0;
+			while(j<dispo){
+				if(d.data[indice[i]][j]==null){
+					tmp++;
+					if(Liste_Serveur.get(0).getTaille()==tmp){
+						for(int k=0;k<Liste_Serveur.get(0).getTaille();k++){
+							d.data[indice[i]][j]=Liste_Serveur.get(0);
+							organisation[indice[i]][j]=Liste_Serveur.get(0);
+							Liste_Serveur.remove(0);
+							return;
+						}
+					}
+				}
+				else{tmp=0;}	
+			}				
+		}
+		Liste_Serveur.remove(0);				
+	}
+	
+	public int[] ligne_inf(){
+		double[] ret=new double[ligne];
+		for(int i=0;i<ligne;i++){
+			double tmp=0;
+			for(int j=0;j<dispo;j++){
+				tmp=tmp+organisation[i][j].getCapacite();
+			}
+			ret[i]=tmp;
+		}
+		int i, j;
+	 
+	    int[] cpt=new int[ligne];
+	    int[] classement=new int[ligne];
+	 
+	    for (i=1; i<ligne; i++){
+	      for (j=0; j<i; j++){
+	    	  if(ret[i]>=ret[j])
+	    		  cpt[i]++;
+	    	  else
+	    		  cpt[j]++;
+	      }
+	    }
+	    for (i=0; i<ligne; i++) classement[cpt[i]]=i;
+	    return classement;
+		
+	}
+
+	
 }

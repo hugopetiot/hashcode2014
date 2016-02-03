@@ -1,4 +1,4 @@
-public class Serveur {
+public class Serveur implements Comparable {
 	int capacite;
 	int taille;
 	int ligne;
@@ -31,6 +31,18 @@ public class Serveur {
 	void setEmplacement(int c){emplacement=c;}
 	Groupe getGroupe(){return groupe;}
 	void setGroupe(Groupe g){groupe=g;}
+
+
+	public int compareTo(Object o) {
+		Serveur s=(Serveur)o;
+		if(getRatio()<s.getRatio())
+			return -1;
+		if(getRatio()>s.getRatio())
+			return 1;
+		return 0;
+	}
+
+
 	
 	
 	
